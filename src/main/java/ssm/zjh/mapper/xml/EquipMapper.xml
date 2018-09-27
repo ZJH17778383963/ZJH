@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html>
+<mapper namespace="ssm.zjh.mapper.EquipMapper">
+  <resultMap id="BaseResultMap" type="ssm.zjh.pojo.Equip">
+    <id column="equip_id" jdbcType="VARCHAR" property="equipId" />
+    <result column="equip_name" jdbcType="VARCHAR" property="equipName" />
+    <result column="equip_level" jdbcType="VARCHAR" property="equipLevel" />
+    <result column="equip_type" jdbcType="VARCHAR" property="equipType" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    equip_id, equip_name, equip_level, equip_type
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from equip
+    where equip_id = #{equipId,jdbcType=VARCHAR}
+  </select>
+  <select id="selectAllEquipList" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select * from equip
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from equip
+    where equip_id = #{equipId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="ssm.zjh.pojo.Equip">
+    insert into equip (equip_id, equip_name, equip_level, 
+      equip_type)
+    values (#{equipId,jdbcType=VARCHAR}, #{equipName,jdbcType=VARCHAR}, #{equipLevel,jdbcType=VARCHAR}, 
+      #{equipType,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="ssm.zjh.pojo.Equip">
+    insert into equip
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="equipId != null">
+        equip_id,
+      </if>
+      <if test="equipName != null">
+        equip_name,
+      </if>
+      <if test="equipLevel != null">
+        equip_level,
+      </if>
+      <if test="equipType != null">
+        equip_type,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="equipId != null">
+        #{equipId,jdbcType=VARCHAR},
+      </if>
+      <if test="equipName != null">
+        #{equipName,jdbcType=VARCHAR},
+      </if>
+      <if test="equipLevel != null">
+        #{equipLevel,jdbcType=VARCHAR},
+      </if>
+      <if test="equipType != null">
+        #{equipType,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="ssm.zjh.pojo.Equip">
+    update equip
+    <set>
+      <if test="equipName != null">
+        equip_name = #{equipName,jdbcType=VARCHAR},
+      </if>
+      <if test="equipLevel != null">
+        equip_level = #{equipLevel,jdbcType=VARCHAR},
+      </if>
+      <if test="equipType != null">
+        equip_type = #{equipType,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where equip_id = #{equipId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="ssm.zjh.pojo.Equip">
+    update equip
+    set equip_name = #{equipName,jdbcType=VARCHAR},
+      equip_level = #{equipLevel,jdbcType=VARCHAR},
+      equip_type = #{equipType,jdbcType=VARCHAR}
+    where equip_id = #{equipId,jdbcType=VARCHAR}
+  </update>
+</mapper>
